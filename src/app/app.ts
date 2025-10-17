@@ -8,5 +8,5 @@ import { Navbar } from "./core/components/navbar/navbar";
   styleUrl: './app.scss'
 })
 export class App {
-  protected title = 'svanholm-automation';
+  protected title = 'mit-robinson-dk';
 }
