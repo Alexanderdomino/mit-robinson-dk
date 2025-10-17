@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "svanholm-automation": {
+    "mit-robinson-dk": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "svanholm-automation:build:production"
+              "buildTarget": "mit-robinson-dk:build:production"
             },
             "development": {
-              "buildTarget": "svanholm-automation:build:development"
+              "buildTarget": "mit-robinson-dk:build:development"
             }
           },
           "defaultConfiguration": "development"

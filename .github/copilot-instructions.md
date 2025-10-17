@@ -1,4 +1,4 @@
-This file gives concise, project-specific guidance for AI coding agents working in the SvanholmAutomation repo.
+This file gives concise, project-specific guidance for AI coding agents working in the mit-robinson-dk repo.
 
 - Big picture
   - This is a single-page Angular application (Angular 20) with a small, feature-based layout under `src/app`.
