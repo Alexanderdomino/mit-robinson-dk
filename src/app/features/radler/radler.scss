@@ -79,14 +79,28 @@
 }
 
 .review-input {
-    display: grid;
-    grid-template-columns: 120px 1fr auto;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-    align-items: end;
+    align-items: stretch;
+    margin-top: 8px;
 }
 
 .ingredients {
     margin-bottom: 8px;
+}
+
+.review-input .stars-row {
+    margin-bottom: 0;
+}
+
+.review-input .comment-field {
+    margin-bottom: 0;
+}
+
+.review-input button[mat-stroked-button] {
+    margin-top: 4px;
+    align-self: stretch;
 }
 
 /* Mobile-friendly layout: stack fields first, image picker below */
