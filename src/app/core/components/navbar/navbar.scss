@@ -1,4 +1,4 @@
-@use '../../../../theme/svan-colors.scss' as *;
+@use '../../../../theme/robinson-colors.scss' as *;
 
 $toolbar-height: 64px;
 
@@ -17,7 +17,7 @@ $toolbar-height: 64px;
     /* include safe area inset for iOS notch */
     padding: env(safe-area-inset-top) 16px 0 16px;
     box-sizing: border-box;
-    background: $svan-white;
+    background: $robinson-white;
 
     /* subtle bottom border that fades when scrolled */
     &::after {
@@ -93,7 +93,7 @@ $toolbar-height: 64px;
 .sidenav-container {
     display: block;
     min-height: 100vh;
-    background: $svan-white;
+    background: $robinson-white;
     overflow: visible;
 }
 
@@ -106,7 +106,7 @@ mat-sidenav-content {
 
 .mobile-sidenav {
     width: 240px;
-    background: $svan-white;
+    background: $robinson-white;
     padding-top: calc($toolbar-height + env(safe-area-inset-top));
 
     a {
@@ -136,7 +136,7 @@ mat-sidenav-content {
 mat-sidenav-content {
     display: block;
     overflow: visible;
-    background: $svan-white;
+    background: $robinson-white;
     padding: 0;
 }
 

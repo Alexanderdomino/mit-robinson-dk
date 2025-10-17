@@ -16,9 +16,7 @@ import { Router } from '@angular/router';
 export class Navbar {
   routes = [
     { label: 'Hjem', path: '/' },
-    { label: 'Projekter', path: '/projects' },
-    { label: 'Kontakt', path: '/contact' },
-    { label: 'Om os', path: '/about' }
+    { label: 'Radler', path: '/radler' }
   ];
 
   sidenavOpen = false;
