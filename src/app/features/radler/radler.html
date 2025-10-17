@@ -77,18 +77,24 @@
                     <!-- simple quick submit review -->
                     <div class="review-input">
                         <div class="stars-row">
-                            <span class="stars">{{ starsString(ensureReviewInput(item.id || '').rating) }}</span>
+                            <ng-container *ngFor="let s of [1,2,3,4,5]">
+                                <button type="button" class="star-btn"
+                                    [class.filled]="ensureReviewInput(item.id || '').rating >= s"
+                                    (click)="setReviewRating(item.id || '', s)" [disabled]="!user">
+                                    <mat-icon>{{ ensureReviewInput(item.id || '').rating >= s ? 'star' : 'star_border'
+                                        }}</mat-icon>
+                                </button>
+                            </ng-container>
                         </div>
-                        <mat-form-field class="rating-field" appearance="fill">
-                            <mat-label>Vurdering (0-5)</mat-label>
-                            <input matInput type="number" min="0" max="5" step="1"
-                                [(ngModel)]="ensureReviewInput(item.id || '').rating" />
-                        </mat-form-field>
                         <mat-form-field class="comment-field" appearance="fill">
                             <mat-label>Kommentar</mat-label>
-                            <input matInput [(ngModel)]="ensureReviewInput(item.id || '').comment" />
+                            <input matInput [(ngModel)]="ensureReviewInput(item.id || '').comment" [disabled]="!user" />
                         </mat-form-field>
-                        <button mat-stroked-button color="primary" (click)="submitReview(item)">Send</button>
+                        <button mat-stroked-button color="primary" (click)="submitReview(item)" [disabled]="!user"
+                            style="margin-top:4px;align-self:flex-end;">Send</button>
+                        <div class="login-hint" *ngIf="!user">
+                            <span>Log ind for at anmelde</span>
+                        </div>
                     </div>
                 </div>
             </mat-card-content>
