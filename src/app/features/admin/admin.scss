@@ -1,0 +1,173 @@
+.admin-container {
+    padding: 12px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 {
+        margin: 0;
+        font-weight: 600;
+    }
+}
+
+.projects-grid {
+    display: grid;
+    gap: 16px;
+
+    @media (min-width: 700px) {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+.admin-body {
+    display: block;
+    gap: 12px;
+}
+
+.editor {
+    width: 100%;
+    padding: 12px 0;
+}
+
+.editor mat-card {
+    padding: 12px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.image-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    justify-content: space-between;
+    /* spread contents across the row */
+}
+
+.preview img {
+    width: 96px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid #e6e6e6;
+    /* subtle border around thumbnail */
+    box-sizing: border-box;
+}
+
+/* drag handle styling */
+.drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    cursor: grab;
+    font-size: 20px;
+    color: #666;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+/* enlarge icon buttons to match thumbnail scale */
+.image-controls button {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+}
+
+.image-controls button mat-icon {
+    font-size: 22px;
+    /* larger icon */
+}
+
+.file-label input[type="file"] {
+    display: none;
+}
+
+.file-label span {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #f4f4f4;
+    border-radius: 6px;
+}
+
+/* center the add-image button */
+.images-list .image-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+/* border around the whole list */
+.image-table {
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #fafafa;
+}
+
+/* footer styles removed — add-button lives outside the table now */
+
+/* separate rows visually */
+.image-row {
+    background: white;
+    border-radius: 6px;
+}
+
+.image-row+.image-row {
+    margin-top: 4px;
+}
+
+/* place controls to the right and let meta expand */
+.image-row>.image-controls {
+    margin-left: auto;
+}
+
+.image-meta {
+    flex: 1 1 auto;
+    padding-left: 12px;
+}
+
+/* padding for card titles */
+mat-card-title {
+    padding: 12px 0 6px 0;
+}
+
+.editor-actions {
+    position: sticky;
+    bottom: 0;
+    background: transparent;
+    /* remove heavy white background */
+    padding-top: 8px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    /* center save/cancel */
+}
+
+.admin-card {
+    img {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    mat-card-actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

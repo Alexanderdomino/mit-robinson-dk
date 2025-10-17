@@ -1,0 +1,85 @@
+<div class="admin-container">
+    <div class="admin-header">
+        <h2>Projektadministration</h2>
+        <button mat-raised-button color="primary" (click)="startAdd()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div class="admin-body">
+        <div class="editor" *ngIf="editMode">
+            <mat-card>
+                <mat-card-title>{{ editMode === 'add' ? 'Tilføj projekt' : 'Rediger projekt' }}</mat-card-title>
+                <mat-card-content>
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Titel</mat-label>
+                        <input matInput [(ngModel)]="workingProject.title" />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Beskrivelse</mat-label>
+                        <textarea matInput rows="4" [(ngModel)]="workingProject.description"></textarea>
+                    </mat-form-field>
+
+                    <h4>Billeder</h4>
+                    <div class="images-list">
+                        <!-- central hidden input used by 'Tilføj billede' -->
+                        <input id="newImageInput" type="file" accept="image/*" style="display:none"
+                            (change)="onNewFileSelected($event)" />
+
+                        @if (workingProject.images && workingProject.images.length > 0) {
+                        <!-- always render the table so the footer can live inside it -->
+                        <div cdkDropList class="image-table"
+                            [class.has-items]="(workingProject.images || []).length > 0"
+                            (cdkDropListDropped)="drop($event)">
+                            @for (img of workingProject.images || []; track img) {
+                            <div class="image-row" cdkDrag>
+                                <div class="drag-handle" cdkDragHandle aria-label="Træk">☰</div>
+                                <div class="preview" *ngIf="img.preview || img.url">
+                                    <img [src]="img.preview || img.url" alt="preview" />
+                                </div>
+                                <div class="image-meta">
+                                    <div class="image-name">Billede {{ img.order + 1 }}</div>
+                                </div>
+                                <div class="image-controls">
+                                    <button mat-icon-button color="warn" (click)="removeImage(img)"
+                                        aria-label="Fjern"><mat-icon>delete</mat-icon></button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                        }
+                        <div class="image-actions">
+                            <button mat-stroked-button color="primary" (click)="addImage()">Tilføj billede</button>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions class="editor-actions">
+                    <button mat-flat-button color="primary" (click)="saveProject()" [disabled]="saving">
+                        <mat-spinner *ngIf="saving" [diameter]="20"></mat-spinner>
+                        <span *ngIf="!saving">Gem</span>
+                    </button>
+                    <button mat-button (click)="cancelEdit()" [disabled]="saving">Annuller</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+        <div class="projects-grid">
+            @for (project of projects; track project.id) {
+            <mat-card class="admin-card">
+                <img mat-card-image [src]="project.images?.[0]?.url || ''" [alt]="project.title" />
+                <mat-card-title>{{ project.title }}</mat-card-title>
+                <mat-card-content>
+                    <p>{{ project.description }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-icon-button color="primary" (click)="startEdit(project)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteProject(project)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+            }
+        </div>
+    </div>

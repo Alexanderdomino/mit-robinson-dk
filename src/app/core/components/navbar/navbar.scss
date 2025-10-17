@@ -1,0 +1,146 @@
+@use '../../../../theme/svan-colors.scss' as *;
+
+$toolbar-height: 64px;
+
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* fixed toolbar so it stays visible while scrolling */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $toolbar-height;
+    z-index: 2000;
+    /* include safe area inset for iOS notch */
+    padding: env(safe-area-inset-top) 16px 0 16px;
+    box-sizing: border-box;
+    background: $svan-white;
+
+    /* subtle bottom border that fades when scrolled */
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.08);
+        opacity: 0;
+        transition: opacity 700ms ease, transform 700ms ease;
+        transform: translateY(-2px);
+        pointer-events: none;
+    }
+
+    &.scrolled::after {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .brand-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .logo {
+            height: 36px;
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .brand {
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    .menu-button {
+        display: none;
+
+        @media (max-width: 800px) {
+            display: inline-flex;
+        }
+    }
+
+    .desktop-links {
+        display: flex;
+        gap: 8px;
+
+        a {
+            color: grey;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.9rem;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        @media (max-width: 800px) {
+            display: none;
+        }
+    }
+}
+
+.sidenav-container {
+    display: block;
+    min-height: 100vh;
+    background: $svan-white;
+    overflow: visible;
+}
+
+/* push content below fixed toolbar */
+.sidenav-container,
+mat-sidenav-content {
+    padding-top: calc($toolbar-height + env(safe-area-inset-top));
+    box-sizing: border-box;
+}
+
+.mobile-sidenav {
+    width: 240px;
+    background: $svan-white;
+    padding-top: calc($toolbar-height + env(safe-area-inset-top));
+
+    a {
+        font-weight: 500;
+        color: #333;
+
+        &:hover {
+            background: #eee;
+        }
+    }
+}
+
+/* Ensure the mobile drawer is fixed to the viewport below the toolbar so it's visible when opened while the page is scrolled */
+.mobile-sidenav {
+    position: fixed !important;
+    left: 0;
+    top: calc($toolbar-height + env(safe-area-inset-top));
+    bottom: 0;
+    height: calc(100vh - ($toolbar-height + env(safe-area-inset-top)));
+    z-index: 1500;
+    /* below toolbar (2000) */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 0;
+}
+
+mat-sidenav-content {
+    display: block;
+    overflow: visible;
+    background: $svan-white;
+    padding: 0;
+}
+
+::ng-deep .mat-drawer,
+::ng-deep .mat-sidenav {
+    border-radius: 0 !important;
+}

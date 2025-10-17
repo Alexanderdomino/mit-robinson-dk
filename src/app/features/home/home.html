@@ -1,0 +1,43 @@
+<section class="carousel-section" *ngIf="projects?.length">
+    <owl-carousel-o [options]="customOptions" class="carousel">
+        <ng-container *ngFor="let project of projects; trackBy: trackById">
+            <ng-template carouselSlide>
+                <img [src]="project.images?.[0]?.url || ''" [alt]="project.title" class="carousel-image"
+                    (click)="openProject(project)" />
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</section>
+
+<section class="offer">
+    <h2>Hvad vi tilbyder</h2>
+    <ul>
+        <li *ngFor="let offer of offers">
+            <mat-icon color="primary">{{ offer.icon }}</mat-icon>
+            <span>{{ offer.text }}</span>
+        </li>
+    </ul>
+</section>
+
+<footer class="owner-info">
+    <img src="assets/images/owner.jpeg" alt="Owner" />
+    <p>
+        <strong>Jacob Svanholm</strong><br />
+        Ejer, Svanholm Automation
+    </p>
+
+    <div class="contact-info">
+        <a href="mailto:jds@svanauto.com">
+            <mat-icon>email</mat-icon>
+            jds@svanauto.com
+        </a>
+        <a href="tel:+4529410882">
+            <mat-icon>phone</mat-icon>
+            +45 29 41 08 82
+        </a>
+        <a href="https://www.linkedin.com/company/svanholm-automation/" target="_blank">
+            <mat-icon>business</mat-icon>
+            LinkedIn
+        </a>
+    </div>
+</footer>

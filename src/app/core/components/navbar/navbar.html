@@ -1,0 +1,34 @@
+<mat-toolbar color="primary" class="navbar" [class.scrolled]="scrolled">
+    <div class="brand-container" (click)="goHome()">
+        <img src="assets/images/logo.png" alt="Svanholm Automation Logo" class="logo" />
+        <span class="brand">Svanholm Automation</span>
+    </div>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button class="menu-button" (click)="sidenavOpen = !sidenavOpen">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <nav class="desktop-links">
+        @for (route of routes; track route) {
+        <a mat-button [routerLink]="route.path">{{ route.label }}</a>
+        }
+    </nav>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav [(opened)]="sidenavOpen" mode="over" class="mobile-sidenav" [autoFocus]="false">
+        <mat-nav-list>
+            @for (route of routes; track route) {
+            <a mat-list-item [routerLink]="route.path" (click)="sidenavOpen = false">
+                {{ route.label }}
+            </a>
+            }
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
