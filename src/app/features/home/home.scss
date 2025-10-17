@@ -101,15 +101,15 @@
 .banner {
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 800px;    // Increased height
     overflow: hidden;
     margin-bottom: 2rem;
 
     .banner-image {
         width: 100%;
-        height: 200%;  // Double the height for seamless loop
+        height: 150%;   // Increased for more content
         object-fit: cover;
-        animation: scroll 20s linear infinite;
+        animation: scroll 30s linear infinite alternate;  // Added alternate for up/down
     }
 
     .banner-text {
@@ -118,7 +118,7 @@
         left: 2rem;
         color: #fff;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        z-index: 2;  // Keep text above scrolling image
+        z-index: 2;
     }
 }
 
@@ -127,7 +127,7 @@
         transform: translateY(0);
     }
     100% {
-        transform: translateY(-50%);  // Scroll up by half height
+        transform: translateY(-33.33%);  // Reduced to prevent showing empty space
     }
 }
 
