@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
   styleUrl: './home.scss'
 })
 export class Home {
+  showPopup = false;
+  private audio: HTMLAudioElement;
   projects: Project[] = [];
 
   offers = [
@@ -26,16 +28,30 @@ export class Home {
     loop: true,
     mouseDrag: false,
     autoplay: true,
-    autoplayTimeout: 8000,
+    autoplayTimeout: 20000,
     dots: true,
     nav: false,
     items: 1
   };
 
-  constructor(@Inject(ProjectsService) private repo: ProjectsService, private router: Router) { }
+  constructor(@Inject(ProjectsService) private repo: ProjectsService, private router: Router) {
+    this.audio = new Audio('assets/sounds/completion-sound.mp3');
+  }
 
   ngOnInit(): void {
     this.repo.getAll().subscribe(list => this.projects = list);
+    
+    setTimeout(() => {
+      this.showPopup = true;
+      
+      // Listen for animation end
+      const popup = document.querySelector('.popup');
+      popup?.addEventListener('transitionend', () => {
+        if (this.showPopup) {
+          this.audio.play();
+        }
+      });
+    }, 1000);
   }
 
   trackById(index: number, item: Project) {
