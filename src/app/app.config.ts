@@ -9,6 +9,8 @@ import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 import { FirestoreProjectsService } from './core/services/firestore-projects.service';
 import { ProjectsService } from './core/services/projects.service';
+import { FirestoreRadlersService } from './core/services/firestore-radlers.service';
+import { RadlersService } from './core/services/radlers.service';
 
 const firebaseProviders = [] as any[];
 if (environment.firebaseConfig && environment.firebaseConfig.projectId) {
@@ -35,12 +37,24 @@ export const appConfig: ApplicationConfig = {
         useClass: FirestoreProjectsService
       },
       // ensure concrete class is registered for DI construction
-      FirestoreProjectsService
+      FirestoreProjectsService,
+      // Radlers service
+      {
+        provide: RadlersService,
+        useClass: FirestoreRadlersService
+      },
+      FirestoreRadlersService
     ] : [
       {
         provide: ProjectsService,
         useFactory: () => {
           throw new Error('Firestore is not configured. Set environment.firebaseConfig.projectId to enable Firestore-backed ProjectsService.');
+        }
+      },
+      {
+        provide: RadlersService,
+        useFactory: () => {
+          throw new Error('Firestore is not configured. Set environment.firebaseConfig.projectId to enable Firestore-backed RadlersService.');
         }
       }
     ])

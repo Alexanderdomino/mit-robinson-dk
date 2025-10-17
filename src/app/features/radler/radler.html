@@ -1,1 +1,98 @@
-<p>radler works!</p>
+<div class="radler-container">
+    <div class="radler-header">
+        <h2>Radler Log</h2>
+        <button mat-raised-button color="primary" (click)="startAdd()">
+            <mat-icon>add</mat-icon>
+            Log ny radler
+        </button>
+    </div>
+
+    <div class="editor" *ngIf="adding">
+        <mat-card>
+            <mat-card-title>Log ny radler</mat-card-title>
+            <mat-card-content>
+                <div class="editor-grid">
+                    <div class="left">
+                        <div class="image-picker" [class.dragging]="draggingOver" (dragover)="onDragOver($event)"
+                            (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+                            <div class="image-preview" *ngIf="imagePreview || working.imageUrl">
+                                <img [src]="imagePreview || working.imageUrl" alt="radler image preview" />
+                                <button class="remove-image-btn" mat-icon-button type="button"
+                                    aria-label="Fjern billede" (click)="removeImage()">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </div>
+                            <input #radlerImageInput id="radlerImageInput" type="file" accept="image/*"
+                                (change)="onImageSelected($event)" hidden>
+                            <button mat-stroked-button color="primary" (click)="radlerImageInput.click()"
+                                *ngIf="!imagePreview && !working.imageUrl">
+                                <mat-icon>image</mat-icon> Vælg billede
+                            </button>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Titel</mat-label>
+                            <input matInput [(ngModel)]="working.title" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Øl</mat-label>
+                            <input matInput [(ngModel)]="working.beer" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Blandet med</mat-label>
+                            <input matInput [(ngModel)]="working.mixer" />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="editor-actions">
+                <button mat-flat-button color="primary" (click)="saveRadler()" [disabled]="saving">
+                    <mat-spinner *ngIf="saving" [diameter]="20"></mat-spinner>
+                    <span *ngIf="!saving">Gem</span>
+                </button>
+                <button mat-button (click)="cancelAdd()" [disabled]="saving">Annuller</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div class="radlers-grid">
+        @for (item of radlers; track item.id) {
+        <mat-card class="radler-card">
+            <img mat-card-image *ngIf="item.imageUrl" [src]="item.imageUrl" [alt]="item.title" />
+            <mat-card-title>{{ item.title }}</mat-card-title>
+            <mat-card-content>
+                <div class="meta">
+                    <div class="ingredients">🍺 {{ item.beer }} + {{ item.mixer }}</div>
+                    <!-- Placeholder for average rating display (computed via separate subscription if needed) -->
+                    <div class="avg-rating" aria-label="Gennemsnitlig vurdering">
+                        {{ starsString(avgRatingFor(item.id || '')) }}
+                        <span class="avg-value" *ngIf="avgRatingFor(item.id || '') as avg"> ({{ avg | number:'1.0-1'
+                            }})</span>
+                    </div>
+                </div>
+                <div class="reviews">
+                    <!-- simple quick submit review -->
+                    <div class="review-input">
+                        <div class="stars-row">
+                            <span class="stars">{{ starsString(ensureReviewInput(item.id || '').rating) }}</span>
+                        </div>
+                        <mat-form-field class="rating-field" appearance="fill">
+                            <mat-label>Vurdering (0-5)</mat-label>
+                            <input matInput type="number" min="0" max="5" step="1"
+                                [(ngModel)]="ensureReviewInput(item.id || '').rating" />
+                        </mat-form-field>
+                        <mat-form-field class="comment-field" appearance="fill">
+                            <mat-label>Kommentar</mat-label>
+                            <input matInput [(ngModel)]="ensureReviewInput(item.id || '').comment" />
+                        </mat-form-field>
+                        <button mat-stroked-button color="primary" (click)="submitReview(item)">Send</button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        }
+    </div>
+</div>

@@ -1,0 +1,108 @@
+.radler-container {
+    padding: 16px;
+}
+
+.radler-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.editor .editor-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 16px;
+}
+
+.editor mat-card-title {
+    padding: 8px 16px;
+}
+
+.image-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.image-picker.dragging {
+    border-color: #3f51b5;
+    background: rgba(63, 81, 181, 0.05);
+}
+
+.image-preview img {
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+}
+
+.image-preview {
+    position: relative;
+}
+
+.stars-row {
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+.stars {
+    font-size: 1.3em;
+    color: #FFD600;
+    letter-spacing: 2px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.radlers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.review-input {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 8px;
+    align-items: end;
+}
+
+.ingredients {
+    margin-bottom: 8px;
+}
+
+/* Mobile-friendly layout: stack fields first, image picker below */
+@media (max-width: 600px) {
+    .editor .editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editor .editor-grid .right {
+        /* input fields */
+        order: 1;
+    }
+
+    .editor .editor-grid .left {
+        /* image picker */
+        order: 2;
+        margin-top: 8px;
+    }
+}
